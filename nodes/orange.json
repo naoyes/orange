@@ -2,6 +2,9 @@
   "nginx":{
     "port":80
   },
+  "php":{
+    "timezone":"Asia/Tokyo"
+  },
   "run_list":[
     "yum::epel",
     "yum::ius",

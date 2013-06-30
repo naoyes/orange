@@ -11,3 +11,11 @@
     action :install
   end
 end
+
+file "/etc/php.d/timezone.ini" do
+  owner "root"
+  group "root"
+  mode "0644"
+  content "[Date]\ndate.timezone = '#{node["php"]["timezone"]}'\n"
+  action :create_if_missing
+end
