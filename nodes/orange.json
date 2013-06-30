@@ -6,6 +6,7 @@
     "yum::epel",
     "yum::ius",
     "iptables",
-    "nginx"
+    "nginx",
+    "php54"
   ]
 }
