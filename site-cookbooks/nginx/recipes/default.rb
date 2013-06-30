@@ -23,3 +23,16 @@ template "nginx.conf" do
   mode 0644
   notifies :reload, 'service[nginx]'
 end
+
+node["nginx"]["virtual"].each do |virtual|
+  log "#{virtual[0]} hello, Chef"
+  template "#{virtual[0]}.virtual.conf" do
+    path "/etc/nginx/conf.d/#{virtual[0]}.virtual.conf"
+    source "#{virtual[0]}.conf.erb"
+    owner "root"
+    group "root"
+    mode 0644
+    notifies :reload, 'service[nginx]'
+  end
+end
+

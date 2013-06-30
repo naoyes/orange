@@ -1,6 +1,14 @@
 {
   "nginx":{
-    "port":80
+    "port":80,
+    "virtual": {
+      "orange": {
+        "port":80,
+        "server_name": "orange.localhost",
+        "log_dir": "/home/vagrant/www/logs",
+        "docroot": "/home/vagrant/www/orange/public"
+      }
+    }
   },
   "php":{
     "timezone":"Asia/Tokyo"

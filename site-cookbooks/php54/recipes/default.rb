@@ -19,3 +19,13 @@ file "/etc/php.d/timezone.ini" do
   content "[Date]\ndate.timezone = '#{node["php"]["timezone"]}'\n"
   action :create_if_missing
 end
+
+# PHP-FPM
+package "php54-fpm" do
+  action :install
+end
+
+service 'php-fpm' do
+  supports :status => true, :restart => true, :reload => true
+  action [:enable, :start]
+end
