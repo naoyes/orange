@@ -1,1 +1,10 @@
-{"run_list":[]}
+{
+  "nginx":{
+    "port":80
+  },
+  "run_list":[
+    "yum::epel",
+    "iptables",
+    "nginx"
+  ]
+}
