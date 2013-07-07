@@ -25,10 +25,29 @@ template "nginx.conf" do
 end
 
 node["nginx"]["virtual"].each do |virtual|
-  log "#{virtual[0]} hello, Chef"
-  template "#{virtual[0]}.virtual.conf" do
-    path "/etc/nginx/conf.d/#{virtual[0]}.virtual.conf"
-    source "#{virtual[0]}.conf.erb"
+  name = virtual[0]
+  log_dir = "/home/vagrant/www/#{name}/logs"
+  docroot = "/home/vagrant/www/#{name}/public"
+
+  [log_dir, docroot].each do |dir|
+    log "#{dir} hello, Chef"
+    directory dir do
+      owner "vagrant"
+      group "vagrant"
+      recursive true
+      mode 0755
+      action :create
+    end
+  end
+
+  template "virtual.conf" do
+    path "/etc/nginx/conf.d/#{name}.virtual.conf"
+    source "virtual.conf.erb"
+    variables ({
+      :name => name,
+      :log_dir => log_dir,
+      :docroot => docroot,
+    })
     owner "root"
     group "root"
     mode 0644
