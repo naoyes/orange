@@ -22,7 +22,7 @@ git dotfiles do
   reference "master"
   action :sync
   user node["general"]["user"]
-  user node["general"]["group"]
+  group node["general"]["group"]
 end
 
 git "#{dotfiles}/.vim/bundle/neobundle.vim" do
@@ -30,13 +30,13 @@ git "#{dotfiles}/.vim/bundle/neobundle.vim" do
   reference "master"
   action :sync
   user node["general"]["user"]
-  user node["general"]["group"]
+  group node["general"]["group"]
 end
 
 [".bash_profile", ".vim", ".vimrc", ".screenrc"].each do |name|
   link "#{home_dir}/#{name}" do
     to "#{dotfiles}/#{name}"
     user node["general"]["user"]
-    user node["general"]["group"]
+    group node["general"]["group"]
   end
 end
