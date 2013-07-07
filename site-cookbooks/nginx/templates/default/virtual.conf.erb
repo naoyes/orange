@@ -4,16 +4,28 @@ server {
 
   access_log <%= "#{@log_dir}/access_log" %>;
   error_log <%= "#{@log_dir}/error_log" %>;
+  root <%= @docroot %>;
 
   location / {
-    root <%= @docroot %>;
-    index index.php index.html index.htm;
+    try_files $uri $uri/ @handler;
+  }
+
+  location @handler {
+    rewrite ^ /index.php?/$request_uri;
+  }
+
+  location ~ ^/index.php$ {
+    fastcgi_pass   127.0.0.1:9000;
+    fastcgi_index  index.php;
+    fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    include        fastcgi_params;
   }
 
   location ~ \.php$ {
-    fastcgi_pass   127.0.0.1:9000;
-    fastcgi_index  index.php;
-    fastcgi_param  SCRIPT_FILENAME <%= @docroot %>$fastcgi_script_name;
-    include        fastcgi_params;
+    deny all;
+  }
+
+  location ~ /\.ht {
+    deny  all;
   }
 }
