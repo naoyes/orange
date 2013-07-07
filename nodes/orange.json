@@ -4,7 +4,7 @@
     "virtual": {
       "orange": {
         "server_name": "orange.localhost"
-      },
+      }
     }
   },
   "php":{
