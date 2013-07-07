@@ -26,11 +26,17 @@ end
 
 node["nginx"]["virtual"].each do |virtual|
   name = virtual[0]
-  log_dir = "/home/vagrant/www/#{name}/logs"
-  docroot = "/home/vagrant/www/#{name}/public"
 
+  # http://stackoverflow.com/a/6796648 にあるとおり
+  # アクセス対象のファイルのすべての親ディレクトリが"x"パーミッションを持たなければならないため
+  home_dir = "/home/vagrant"
+  directory home_dir do
+    mode 0701
+  end
+
+  log_dir = "#{home_dir}/www/#{name}/logs"
+  docroot = "#{home_dir}/www/#{name}/public"
   [log_dir, docroot].each do |dir|
-    log "#{dir} hello, Chef"
     directory dir do
       owner "vagrant"
       group "vagrant"
