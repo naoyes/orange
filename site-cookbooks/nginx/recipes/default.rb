@@ -29,7 +29,7 @@ node["nginx"]["virtual"].each do |virtual|
 
   # http://stackoverflow.com/a/6796648 にあるとおり
   # アクセス対象のファイルのすべての親ディレクトリが"x"パーミッションを持たなければならないため
-  home_dir = "/home/vagrant"
+  home_dir = node["general"]["home_dir"]
   directory home_dir do
     mode 0701
   end
@@ -38,8 +38,8 @@ node["nginx"]["virtual"].each do |virtual|
   docroot = "#{home_dir}/www/#{name}/public"
   [log_dir, docroot].each do |dir|
     directory dir do
-      owner "vagrant"
-      group "vagrant"
+      user node["general"]["user"]
+      group node["general"]["group"]
       recursive true
       mode 0755
       action :create

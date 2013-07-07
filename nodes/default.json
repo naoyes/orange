@@ -1,10 +1,15 @@
 {
+  "general":{
+    "user": "vagrant",
+    "group": "vagrant",
+    "home_dir": "/home/vagrant"
+  },
   "nginx":{
     "port":80,
     "virtual": {
       "orange": {
         "server_name": "orange.localhost"
-      },
+      }
     }
   },
   "php":{
@@ -16,6 +21,7 @@
     "iptables",
     "nginx",
     "php54",
-    "dev::git"
+    "dev::git",
+    "dev::default"
   ]
 }
