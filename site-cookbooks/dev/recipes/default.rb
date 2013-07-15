@@ -14,6 +14,14 @@ package "screen" do
   action :install
 end
 
+package "man" do
+  action :install
+end
+
+gem_package "bundler" do
+  action :install
+end
+
 home_dir = node["general"]["home_dir"]
 dotfiles = "#{home_dir}/dotfiles"
 
