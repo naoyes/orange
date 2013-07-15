@@ -21,6 +21,7 @@
     "yum::repoforge",
     "iptables",
     "nginx",
+    "nodejs",
     "php54",
     "dev::git",
     "dev::default"

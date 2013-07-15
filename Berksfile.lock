@@ -1,8 +1,17 @@
 {
-  "sha": "cba08f94ddc504109501d0651a3fa5e67c638676",
+  "sha": "1b949594827d184a7857fc53db38f2129d8ce2e6",
   "sources": {
     "yum": {
       "locked_version": "2.3.0"
+    },
+    "nodejs": {
+      "locked_version": "1.1.2"
+    },
+    "build-essential": {
+      "locked_version": "1.4.0"
+    },
+    "apt": {
+      "locked_version": "2.0.0"
     }
   }
 }
