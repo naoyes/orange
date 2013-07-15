@@ -7,7 +7,7 @@ server {
   root <%= @docroot %>;
 
   location / {
-    try_files $uri $uri/ @handler;
+    try_files $uri @handler;
   }
 
   location @handler {
