@@ -18,6 +18,7 @@
   "run_list":[
     "yum::epel",
     "yum::ius",
+    "yum::repoforge",
     "iptables",
     "nginx",
     "php54",

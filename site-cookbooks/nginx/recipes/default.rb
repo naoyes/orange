@@ -24,20 +24,33 @@ template "nginx.conf" do
   notifies :reload, 'service[nginx]'
 end
 
+# http://stackoverflow.com/a/6796648 にあるとおり
+# アクセス対象のファイルのすべての親ディレクトリが"x"パーミッションを持たなければならないため
+home_dir = node["general"]["home_dir"]
+directory home_dir do
+  mode 0701
+end
+
+web_dir = "#{home_dir}/www"
+directory web_dir do
+  user node["general"]["user"]
+  group node["general"]["group"]
+  action :create
+end
+
 node["nginx"]["virtual"].each do |virtual|
   name = virtual[0]
 
-  # http://stackoverflow.com/a/6796648 にあるとおり
-  # アクセス対象のファイルのすべての親ディレクトリが"x"パーミッションを持たなければならないため
-  home_dir = node["general"]["home_dir"]
-  directory home_dir do
-    mode 0701
+  app_dir = "#{web_dir}/#{name}"
+  directory app_dir do
+    user node["general"]["user"]
+    group node["general"]["group"]
+    action :create
   end
 
-  log_dir = "#{home_dir}/www/#{name}/logs"
-  docroot = "#{home_dir}/www/#{name}/public"
-  [log_dir, docroot].each do |dir|
-    directory dir do
+  dirs = ["logs", "app"]
+  dirs.each do |dir|
+    directory "#{app_dir}/#{dir}" do
       user node["general"]["user"]
       group node["general"]["group"]
       recursive true
@@ -51,8 +64,8 @@ node["nginx"]["virtual"].each do |virtual|
     source "virtual.conf.erb"
     variables ({
       :name => name,
-      :log_dir => log_dir,
-      :docroot => docroot,
+      :log_dir => "#{app_dir}/logs",
+      :docroot => "#{app_dir}/app/public",
     })
     owner "root"
     group "root"
