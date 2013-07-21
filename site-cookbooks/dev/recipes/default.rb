@@ -41,7 +41,7 @@ git "#{dotfiles}/.vim/bundle/neobundle.vim" do
   group node["general"]["group"]
 end
 
-[".bash_profile", ".vim", ".vimrc", ".screenrc"].each do |name|
+[".bash_profile", ".vim", ".vimrc", ".screenrc", ".bash"].each do |name|
   link "#{home_dir}/#{name}" do
     to "#{dotfiles}/#{name}"
     user node["general"]["user"]
