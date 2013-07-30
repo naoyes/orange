@@ -22,7 +22,7 @@ $ vagrant init centos
 $ git clone https://github.com/naoyes/orange.git chef-repo
 ```
 
-### レシピの生成
+### ベンダレシピの取得
 
 ```
 $ cd ./chef-repo
