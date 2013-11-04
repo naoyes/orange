@@ -37,6 +37,12 @@ $ vagrant up
 $ vagrant ssh-config --host orange >> ~/.ssh/config
 ```
 
+### レシピの改変
+
+```
+$ cp -iv nodes/default.json nodes/orange.json
+```
+
 ### レシピの適用
 
 ```
